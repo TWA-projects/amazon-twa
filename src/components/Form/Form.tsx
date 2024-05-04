@@ -5,18 +5,19 @@ import { useTelegram } from '../../hooks/useTelegram';
 export const Form: React.FC = () => {
   const { tg } = useTelegram();
   const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [asin, setAsin] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [sex, setSex] = useState<string>('female');
 
   const onSendData = useCallback(() => {
     const data = {
       name,
-      email,
+      asin,
       sex,
     };
 
     tg.sendData(JSON.stringify(data));
-  }, [email, name, sex]); // eslint-disable-line
+  }, [asin, name, sex]); // eslint-disable-line
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData);
@@ -33,21 +34,25 @@ export const Form: React.FC = () => {
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    if (!name || !email) {
+    if (!name || !asin) {
       tg.MainButton.hide();
     } else {
       tg.MainButton.show();
     }
-  }, [name, email]); // eslint-disable-line
+  }, [name, asin]); // eslint-disable-line
 
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const onChangeAsin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAsin(e.target.value);
   };
   const onChangeSex = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSex(e.target.value);
+  };
+
+  const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
   };
 
   return (
@@ -57,7 +62,7 @@ export const Form: React.FC = () => {
       <form className='form'>
         {/* <label htmlFor="name">Name</label> */}
         <label htmlFor='name' className='label'>
-          Name
+          Product Name:
         </label>
         <input
           className='input'
@@ -65,21 +70,44 @@ export const Form: React.FC = () => {
           type='text'
           value={name}
           onChange={onChangeName}
-          placeholder='e.g. "John Doe"'
+          placeholder='e.g. iPhone 12'
         />
 
-        {/* <label htmlFor='email'>Email</label> */}
-        <label htmlFor='email' className='label'>
-          Name
+        <label htmlFor='asin' className='label'>
+          ASIN:
         </label>
         <input
           className='input'
-          type='email'
-          id='email'
-          value={email}
-          onChange={onChangeEmail}
-          placeholder='e.g. jondoe@gmail.com'
+          type='text'
+          id='asin'
+          value={asin}
+          onChange={onChangeAsin}
+          placeholder='e.g. B08Y5V8JLH'
         />
+
+        <label htmlFor='phone' className='label'>
+          Phone Number:
+        </label>
+        <input
+          className='input'
+          type='tel'
+          id='phone'
+          value={phone}
+          onChange={onChangePhone}
+          placeholder='e.g. 123456789'
+        />
+
+        <fieldset>
+          <legend className='legend'>Return policy:</legend>
+          <label>
+            <input type='radio' name='FBA' value='FBA' />
+            FBA
+          </label>
+          <label>
+            <input type='radio' name='FBA' value='FBM' />
+            FBM
+          </label>
+        </fieldset>
 
         <select className={'select'} value={sex} onChange={onChangeSex}>
           <option value={'female'}>Female</option>

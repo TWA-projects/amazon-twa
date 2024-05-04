@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form } from '../components/Form/Form';
+import { Form_2 } from '../components/Form';
 
 export const MainScreen: React.FC = () => {
-  return <Form />;
+  return <Form_2 />;
 };
