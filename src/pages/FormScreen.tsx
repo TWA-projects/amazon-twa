@@ -1,5 +1,6 @@
 import React from 'react';
+import { Form } from '../components/Form';
 
-export const FormScreen = () => {
-  return <div>FormScreen</div>;
+export const FormScreen: React.FC = () => {
+  return <Form />;
 };
