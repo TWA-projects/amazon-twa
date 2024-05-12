@@ -47,12 +47,18 @@ const initialFormData: FormDataState = {
 };
 
 export const Form: React.FC = () => {
-  const { tg } = useTelegram();
+  const { tg, user, queryId } = useTelegram();
   const [formData, setFormData] = useState<FormDataState>(initialFormData);
 
+  const data = {
+    user,
+    queryId,
+    formData,
+  };
+
   const onSendData = useCallback(() => {
-    tg.sendData(JSON.stringify(formData));
-  }, [formData]); // eslint-disable-line
+    tg.sendData(JSON.stringify(data));
+  }, [data]); // eslint-disable-line
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData);
