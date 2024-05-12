@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import App from './App';
-import { MainScreen, FormScreen } from './pages';
+import { FormScreen } from './pages';
 
 export const Root = () => {
   // No useLocation here, the Router provides the context now
@@ -9,7 +9,7 @@ export const Root = () => {
       <Routes>
         <Route path='/' element={<App />}>
           {/* Index route for the nested routes */}
-          <Route index element={<MainScreen />} />
+          <Route index element={<FormScreen />} />
           <Route path='/form' element={<FormScreen />} />
           {/* <Route path='/nutrition' element={<ScreenThree />} /> */}
           {/* <Route path='/tasks' element={<ScreenFour />} /> */}
